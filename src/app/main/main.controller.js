@@ -1,28 +1,35 @@
 'use strict';
 
 angular.module('redditDeck')
-  .controller('MainCtrl', function ($scope, $resource) {
+  .controller('MainCtrl', function ($scope, $http) {
 
     // TODO (Erik Hellenbrand) : Move reddit resource logic to a service/factory
-    $scope.baseUrl = 'http://www.reddit.com/r/';
-    $scope.subs = [];
-    $scope.links = [
-      {
-        displayText: 'First link goes here',
-        description: 'Maybe a little preview goes here?',
-        url: 'http://www.erikhellenbrand.com'
-      },
+    this.baseUrl = 'http://api.reddit.com/r/';
+    this.after = '';
 
-      {
-        displayText: '2nd link goes here',
-        description: 'Can we even show a preview?',
-        url: 'http://www.google.com'
-      }
-    ];
-
+    $scope.subs = ['news'];
+    this.items = [];
+    $scope.items = this.items;
+    
     function getSubsUrl(subsArray) {
       return subsArray.join('+');
     }
 
-    // $scope.Reddit = $resource($scope.baseUrl + getSubsUrl($scope.subs));
+    this.url = this.baseUrl
+              + getSubsUrl($scope.subs)
+              + '?after='
+              + this.after
+              + '&limit=10'
+              + '&jsonp=JSON_CALLBACK';
+
+    $http.jsonp(this.url).success(function(data) {
+      var items = data.data.children;
+      for (var i = 0; i < items.length; i++) {
+        this.items.push(items[i].data);
+      }
+      console.dir(this.items);
+      this.after = "t3_" + this.items[this.items.length - 1].id;
+      this.busy = false;
+    }.bind(this));
+
   });

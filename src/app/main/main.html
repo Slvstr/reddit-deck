@@ -11,9 +11,8 @@
   </section>
 
   <md-list layout="column">
-    <md-item ng-repeat="link in links | orderBy:'displayText'">
-      <h3><a ng-href="{{link.url}}">{{link.displayText}}</a></h3>
-      <p>{{link.description}}</p>
+    <md-item ng-repeat="link in items | orderBy:'title'">
+      <h3><a ng-href="{{link.url}}">{{link.title}}</a></h3>
     </md-item>
   </md-list>
   <footer>
