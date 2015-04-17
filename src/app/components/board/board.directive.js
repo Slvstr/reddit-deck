@@ -15,7 +15,7 @@
   
         link: function(scope, element, attrs) {
           // Get own instance of reddit service
-          scope.reddit = Reddit(scope.subs);
+          scope.reddit = Reddit.init(scope.subs);
 
           scope.links = scope.reddit.items;
 
