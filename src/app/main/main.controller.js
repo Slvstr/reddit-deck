@@ -1,23 +1,9 @@
 'use strict';
 
 angular.module('redditDeck')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, Storage) {
 
-    $scope.boards = [
-      {
-        subs: ['news'],
-        name: 'News'
-      },
+    $scope.boards = JSON.parse(Storage.getItem('boards'));
 
-      {
-        subs: ['funny', 'wtf'],
-        name: 'Funny / WTF'
-      },
 
-      {
-        subs: ['learnprogramming'],
-        name: 'Learn Programming'
-      }
-    ];
-  
   });
