@@ -1,20 +1,9 @@
 <md-content>
   <header ng-include="'app/components/navbar/navbar.html'"></header>
 
-  <section class="jumbotron" layout-align="center">
-    <h1>Reddit-Deck</h1>
-    <p class="lead">
-      <img src="assets/images/yeoman.png" alt="Made with Yeoman"><br>
-      Always a pleasure scaffolding your apps.
-    </p>
-    <p><a class="btn" ng-href="#">Splendid!</a></p>
-  </section>
-
-  <md-list layout="column">
-    <md-item ng-repeat="link in items | orderBy:'title'">
-      <h3><a ng-href="{{link.url}}">{{link.title}}</a></h3>
-    </md-item>
-  </md-list>    
+  <div class="boards">
+    <board ng-repeat="board in boards" subs="board.subs" name="{{board.name}}"></board>
+  </div>
 
   <footer>
     <md-toolbar layout="row" layout-align="center center">

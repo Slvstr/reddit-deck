@@ -1,14 +1,23 @@
 'use strict';
 
 angular.module('redditDeck')
-  .controller('MainCtrl', function ($scope, Reddit) {
+  .controller('MainCtrl', function ($scope) {
 
-    $scope.subs = ['news'];
-    var reddit = Reddit($scope.subs);
+    $scope.boards = [
+      {
+        subs: ['news'],
+        name: 'News'
+      },
 
-    $scope.items = reddit.items;
+      {
+        subs: ['funny', 'wtf'],
+        name: 'Funny / WTF'
+      },
 
-
-    reddit.getNextPage();
+      {
+        subs: ['learnprogramming'],
+        name: 'Learn Programming'
+      }
+    ];
   
   });

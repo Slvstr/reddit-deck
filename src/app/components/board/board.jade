@@ -1,0 +1,7 @@
+md-toolbar
+  h2.name {{name}}
+md-list(layout="column")
+  md-item(ng-repeat="link in links | orderBy: 'title'")
+    p
+      a(ng-href="{{link.url}}") {{link.title}}
+    

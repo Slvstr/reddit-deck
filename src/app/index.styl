@@ -1,6 +1,7 @@
 @import url("http://fonts.googleapis.com/css?family=Roboto\+Slab:400,700|Roboto:400,700,700italic,400italic")
 
 PAGE_WIDTH = 800px
+BOARD_WIDTH = 500px
 
 html
   font-family 'Roboto Slab', serif
@@ -28,19 +29,39 @@ md-toolbar
 
 section
   &.jumbotron
-    margin 0 auto 30px auto
-    padding 1px 30px
+    margin 0 auto
     background-color #5aadbb
     text-align center
     color white
     h1
       font-size 3em
+
+.boards
+  display flex
+  box-sizing border-box
+  margin 5px 5px
+  padding 10px
+  box-shadow inset 2px 2px 3px 3px rgb(69, 69, 69), inset -2px -2px 3px 3px rgb(69, 69, 69)
+      
+board
+  margin 0 10px
+  box-shadow 2px 2px 3px 2px #ccc
+  padding 5px
+  max-width: BOARD_WIDTH
+  
+  h2
+    text-align center
+  
+
 md-list
-  max-width PAGE_WIDTH
   margin 0 auto
+  overflow auto
 
 md-item
-  margin 0 auto
+  border-bottom 1px solid rgb(69, 69, 69)
+  padding 5px
+
+    
 
 /* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
    all your stylus files automatically */
