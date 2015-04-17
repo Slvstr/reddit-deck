@@ -22,7 +22,7 @@
       ];
 
       if (!Storage.getItem('boards')) {
-        Storage.setItem('boards', JSON.stringify(defaultBoards));
+        Storage.setItem('boards', defaultBoards);
       }
 
     })

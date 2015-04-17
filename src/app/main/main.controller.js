@@ -4,7 +4,7 @@ angular.module('redditDeck')
   .controller('MainCtrl', function ($scope, Storage) {
 
     // Get boards array from local storage
-    $scope.boards = JSON.parse(Storage.getItem('boards'));
+    $scope.boards = Storage.getItem('boards');
 
     $scope.addBoard = function(index) {
       // add a new board object to boards array
