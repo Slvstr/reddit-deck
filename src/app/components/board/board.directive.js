@@ -56,6 +56,16 @@
             scope.editing = false;
           };
 
+          scope.removeSub = function(sub) {
+            var index = scope.subs.indexOf(sub);
+
+            if (index !== -1 && scope.subs.length > 1) {
+              scope.subs.splice(scope.subs.indexOf(sub), 1);
+              reddit.update(scope.subs);          
+            }
+
+          };
+
 
         }
       }

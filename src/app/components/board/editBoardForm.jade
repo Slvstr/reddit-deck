@@ -1,9 +1,10 @@
 div.edit-subs
   h3 Edit Subs
-  md-list(layout="column")
+  md-list.sub-list(layout="column")
     md-item(ng-repeat="sub in subs" flex)
       div 
-        p {{sub}}
+        span.sub {{sub}}
+        span.remove-sub(ng-click="removeSub(sub)") X
 div.addSub
   form(ng-submit="searchSubs(subsQuery)")
     md-input-container
