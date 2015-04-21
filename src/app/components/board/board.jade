@@ -6,4 +6,6 @@ div(ng-show="!editing")
     md-item(ng-repeat="link in links | orderBy: 'title'")
       p
         a(ng-href="{{link.url}}") {{link.title}}
+  md-toolbar
+    md-button(ng-click="loadNext()") More...
     

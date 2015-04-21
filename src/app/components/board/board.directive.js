@@ -30,6 +30,12 @@
           scope.links = reddit.items;
           reddit.getNextPage();
 
+
+          //Load next batch of links
+          scope.loadNext = function() {
+            return reddit.getNextPage();
+          };
+
           // TODO (Erik Hellenbrand) : Would probably be better to move form logic to its own controller
 
           // Show addBoardForm
