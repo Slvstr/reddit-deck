@@ -59,9 +59,12 @@
           },
 
           update: function(subs) {
-            _items = [];
             _after = '';
             _subs = subs;
+
+            while(_items.length) {
+              _items.pop();
+            }
 
             return this.getNextPage();
           }
