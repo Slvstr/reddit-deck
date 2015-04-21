@@ -4,7 +4,7 @@
   angular.module('redditDeck')
 
   .factory('Reddit', function($http){
-    var _baseUrl = 'http://api.reddit.com/r/';
+    var _baseUrl = 'http://api.reddit.com/';
     var POSTS_PER_PAGE = 10;
 
     function getSubsUrl(subsArray) {
@@ -12,22 +12,27 @@
     }
 
 
-    return {
-      init: function(subs) {
+    return function(subs) {
         var _items = [];
         var _after = '';
         var _busy = '';
-        var _url = _baseUrl
-                + getSubsUrl(subs)
-                + '?after='
-                + _after
-                + '&limit=' + POSTS_PER_PAGE
-                + '&jsonp=JSON_CALLBACK';
+        var _subs = subs || [];
 
 
         return {
           after: _after,
           getNextPage: function() {
+
+            var self = this;
+
+            var _url = _baseUrl
+                    + 'r/'
+                    + getSubsUrl(_subs)
+                    + '?after='
+                    + _after
+                    + '&limit=' + POSTS_PER_PAGE
+                    + '&jsonp=JSON_CALLBACK';
+
             return $http.jsonp(_url).success(function(data) {
               var items = data.data.children;
               for (var i = 0; i < items.length; i++) {
@@ -37,14 +42,31 @@
               _busy = false;
             });
           },
-          items: _items
+
+          items: _items,
+
+          searchSubs: function(query) {
+            var query = encodeURIComponent(query);
+            var _url = 'http://www.reddit.com/api/' + 'subreddits_by_topic.json?query=' + query;
+            var results = [];
+            $http.get(_url).success(function(data) {
+              for (var i = 0; i < data.length; i++) {
+                results.push(data[i].name);
+              }
+            });
+
+            return results;
+          },
+
+          update: function(subs) {
+            _items = [];
+            _after = '';
+            _subs = subs;
+
+            return this.getNextPage();
+          }
         };
-      },
-
-      searchSubs: function(query) {
-
-      }
-    };
+      };
 
   });
 

@@ -1,0 +1,17 @@
+div.edit-subs
+  md-toolbar Edit Subs
+  md-list(layout="column")
+    md-item(ng-repeat="sub in subs" flex)
+      div 
+        h3 {{sub}}
+div.addSub
+  form
+    mg-input-container
+      label Search For subs
+      input(ng-model="subsQuery" maxlength="50")
+      md-button(type="submit" ng-click="searchSubs(subsQuery)") Search
+    md-list(layout="column")
+      md-item(ng-repeat="result in searchResults")
+        p {{result}}
+        md-button(ng-click="addSub(result)") +
+
