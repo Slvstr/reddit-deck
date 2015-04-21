@@ -1,6 +1,6 @@
 md-toolbar
   h2.name(ng-click="toggleEditMode()") {{name}}
-div(ng-include="'app/components/board/editBoardForm.html'" ng-show="editing")
+div(ng-include="'app/components/board/editBoardForm.html'" ng-show="editing" ng-animate="{enter: 'slide-enter', leave: 'slide-leave'}")
 div(ng-show="!editing")
   md-list(layout="column")
     md-item(ng-repeat="link in links | orderBy: 'title'")
