@@ -1,11 +1,19 @@
+div.edit-name
+  h3 Edit Board Name
+  md-divider
+  md-input-container
+    input(ng-model='board.name')
 div.edit-subs
   h3 Edit Subs
+  md-divider
   md-list.sub-list(layout="column")
-    md-item(ng-repeat="sub in subs" flex)
+    md-item(ng-repeat="sub in board.subs" flex)
       div 
         span.sub {{sub}}
         span.remove-sub(ng-click="removeSub(sub)") X
 div.addSub
+  h3 Add Sub
+  md-divider
   form(ng-submit="searchSubs(subsQuery)")
     md-input-container
       label Search For subs

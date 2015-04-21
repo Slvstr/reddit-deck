@@ -3,20 +3,19 @@
 
   angular.module('redditDeck')
 
-    .directive('board', function(Reddit) {
+    .directive('board', function(Reddit, $rootScope) {
 
       return {
         restrict: 'E',
         templateUrl: 'app/components/board/board.html',
         scope: {
-          subs: '=',
-          name: '@'
+          board: '='
         },
   
         link: function(scope, element, attrs) {
 
           // If no subs were defined, open in edit mode
-          if (scope.subs.length) {
+          if (scope.board.subs.length) {
             scope.editing = false;
           }
           else {
@@ -26,7 +25,7 @@
 
 
           // Get own instance of reddit service and load initial items
-          var reddit = Reddit(scope.subs);
+          var reddit = Reddit(scope.board.subs);
           scope.links = reddit.items;
           reddit.getNextPage();
 
@@ -51,17 +50,17 @@
           };
 
           scope.addSub = function(sub) {
-            scope.subs.push(sub);
-            reddit.update(scope.subs);
+            scope.board.subs.push(sub);
+            reddit.update(scope.board.subs);
             scope.editing = false;
           };
 
           scope.removeSub = function(sub) {
-            var index = scope.subs.indexOf(sub);
+            var index = scope.board.subs.indexOf(sub);
 
             if (index !== -1 && scope.subs.length > 1) {
-              scope.subs.splice(scope.subs.indexOf(sub), 1);
-              reddit.update(scope.subs);          
+              scope.board.subs.splice(scope.board.subs.indexOf(sub), 1);
+              reddit.update(scope.board.subs);          
             }
 
           };
