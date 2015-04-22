@@ -35,6 +35,26 @@
             return reddit.getNextPage();
           };
 
+
+          // Handle interaction with the options dropdown
+          scope.$watch(function() {
+            return scope.selectedOption;
+          },
+          function(option) {
+            if (option === 'refresh') {
+              reddit.update(scope.board.subs);
+              if (scope.editing) scope.toggleEditMode();
+            }
+            else if (option === 'edit') {
+              scope.toggleEditMode();
+            }
+
+            // TODO (Erik Hellenbrand) : Add support for deleting board.  Maybe use $rootScope.broadcast?
+
+            scope.selectedOption = '';
+
+          });
+
           // TODO (Erik Hellenbrand) : Would probably be better to move form logic to its own controller
 
           // Show addBoardForm

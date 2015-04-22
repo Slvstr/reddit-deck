@@ -1,5 +1,9 @@
 md-toolbar
-  h2.name(ng-click="toggleEditMode()") {{board.name}}
+  div.md-toolbar-tools(layout="row" layout-align="space-between center" flex)
+    h2.name(ng-click="toggleEditMode()") {{board.name}}
+    md-select(ng-model="selectedOption")
+      md-option(value="refresh") Refresh
+      md-option(value="edit") Edit
 div(ng-include="'app/components/board/editBoardForm.html'" ng-show="editing" ng-animate="{enter: 'slide-enter', leave: 'slide-leave'}")
 div(ng-show="!editing")
   md-list(layout="column")
