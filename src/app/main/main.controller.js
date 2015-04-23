@@ -9,15 +9,23 @@ angular.module('redditDeck')
     $scope.addBoard = function() {
       // add a new board object to boards array
       $scope.boards.push({name: '', subs: []});
+      $scope.saveBoards();
     };
 
 
-    $scope.removeBoard = function(index1) {
-      // remove a board from boards array
+    $scope.removeBoard = function(board) {
+      // remove a board from boards array and persist the change to localStorage
+      var index = $scope.boards.indexOf(board);
+      $scope.boards.splice(index, 1);
+      $scope.saveBoards();
     };
 
-    $scope.mergeBoards = function(index1, index2) {
-      // merge 2 boards into a single board by combining subs
+    // $scope.mergeBoards = function(index1, index2) {
+    //   // merge 2 boards into a single board by combining subs
+    // };
+
+    $scope.saveBoards = function() {
+      Storage.setItem('boards', $scope.boards);
     };
 
 

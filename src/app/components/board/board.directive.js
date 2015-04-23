@@ -24,10 +24,14 @@
           }
 
 
-          // Get own instance of reddit service and load initial items
+          // Get own instance of reddit service
           var reddit = Reddit(scope.board.subs);
           scope.links = reddit.items;
-          reddit.getNextPage();
+
+          // Load initial items if this is an existing board
+          if (scope.board.subs.length) {
+            reddit.getNextPage();
+          }
 
 
           //Load next batch of links
@@ -49,11 +53,15 @@
               scope.toggleEditMode();
             }
 
-            // TODO (Erik Hellenbrand) : Add support for deleting board.  Maybe use $rootScope.broadcast?
+
+            else if (option === 'delete') {
+              scope.$parent.removeBoard(scope.board);
+            }
 
             scope.selectedOption = '';
 
           });
+
 
           // TODO (Erik Hellenbrand) : Would probably be better to move form logic to its own controller
 
@@ -66,13 +74,13 @@
           // search for new subs
           scope.searchSubs = function(query) {
             scope.searchResults = reddit.searchSubs(query);
-            console.dir(scope.searchResults);
           };
 
           scope.addSub = function(sub) {
             scope.board.subs.push(sub);
             reddit.update(scope.board.subs);
-            scope.editing = false;
+            scope.toggleEditMode();
+            scope.$parent.saveBoards();
           };
 
           scope.removeSub = function(sub) {
@@ -80,14 +88,15 @@
 
             if (index !== -1 && scope.subs.length > 1) {
               scope.board.subs.splice(scope.board.subs.indexOf(sub), 1);
-              reddit.update(scope.board.subs);          
+              reddit.update(scope.board.subs);
+              scope.$parent.saveBoards();
             }
 
           };
 
 
         }
-      }
+      };
     });
 
 

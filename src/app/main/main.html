@@ -2,7 +2,7 @@
   <header ng-include="'app/components/navbar/navbar.html'"></header>
 
   <div class="boards">
-    <board ng-repeat="board in boards" board='board'></board>
+    <board ng-repeat="board in boards" board='board' removefn="removeBoard()"></board>
   </div>
 
   <footer>

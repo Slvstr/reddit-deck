@@ -2,7 +2,7 @@ div.edit-name
   h3 Edit Board Name
   md-divider
   md-input-container
-    input(ng-model='board.name')
+    input(ng-model='board.name' ng-blur="$parent.saveBoards()")
 div.edit-subs
   h3 Edit Subs
   md-divider

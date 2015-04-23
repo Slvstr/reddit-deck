@@ -4,6 +4,7 @@ md-toolbar
     md-select(ng-model="selectedOption")
       md-option(value="refresh") Refresh
       md-option(value="edit") Edit
+      md-option(value="delete") Delete
 div(ng-include="'app/components/board/editBoardForm.html'" ng-show="editing" ng-animate="{enter: 'slide-enter', leave: 'slide-leave'}")
 div(ng-show="!editing")
   md-list(layout="column")
