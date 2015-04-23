@@ -65,8 +65,8 @@
             while(_items.length) {
               _items.pop();
             }
-            var self = this;
-            return self.getNextPage();
+        
+            return this.getNextPage();
           }
         };
       };

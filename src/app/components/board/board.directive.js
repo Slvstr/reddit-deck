@@ -14,6 +14,8 @@
   
         link: function(scope, element, attrs) {
 
+          scope.loading = true
+
           // If no subs were defined, open in edit mode
           if (scope.board.subs.length) {
             scope.editing = false;
@@ -30,13 +32,18 @@
 
           // Load initial items if this is an existing board
           if (scope.board.subs.length) {
-            reddit.getNextPage();
+            reddit.getNextPage().then(function() {
+              scope.loading = false;
+            });
           }
 
 
           //Load next batch of links
           scope.loadNext = function() {
-            return reddit.getNextPage();
+            scope.loading = true
+            return reddit.getNextPage().then(function() {
+              scope.loading = false;
+            });
           };
 
 
@@ -46,7 +53,11 @@
           },
           function(option) {
             if (option === 'refresh') {
-              reddit.update(scope.board.subs);
+              scope.loading = true;
+              reddit.update(scope.board.subs).then(function() {
+                scope.loading = false;
+              });
+
               if (scope.editing) scope.toggleEditMode();
             }
             else if (option === 'edit') {
@@ -78,8 +89,11 @@
 
           scope.addSub = function(sub) {
             scope.board.subs.push(sub);
-            reddit.update(scope.board.subs);
+            reddit.update(scope.board.subs).then(function() {
+              scope.loading = false;
+            });
             scope.toggleEditMode();
+            scope.loading = true;
             scope.$parent.saveBoards();
           };
 
@@ -87,8 +101,11 @@
             var index = scope.board.subs.indexOf(sub);
 
             if (index !== -1 && scope.subs.length > 1) {
+              scope.loading = true;
               scope.board.subs.splice(scope.board.subs.indexOf(sub), 1);
-              reddit.update(scope.board.subs);
+              reddit.update(scope.board.subs).then(function() {
+                scope.loading = false;
+              });
               scope.$parent.saveBoards();
             }
 

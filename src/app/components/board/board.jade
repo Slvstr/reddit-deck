@@ -7,10 +7,12 @@ md-toolbar
       md-option(value="delete") Delete
 div(ng-include="'app/components/board/editBoardForm.html'" ng-show="editing" ng-animate="{enter: 'slide-enter', leave: 'slide-leave'}")
 div(ng-show="!editing")
-  md-list(layout="column")
+  md-list(layout="column" ng-hide="loading")
     md-item(ng-repeat="link in links | orderBy: 'title'")
       p
         a(ng-href="{{link.url}}") {{link.title}}
+  div.loading-icon(ng-show="loading && !editing" layout="row" layout-align="center")
+    md-progress-circular.md-warn(md-mode="indeterminate")
   md-toolbar
     md-button(ng-click="loadNext()") More...
     
